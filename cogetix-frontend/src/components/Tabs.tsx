@@ -1,16 +1,20 @@
 import React from 'react';
 
 interface TabsProps {
-  activeTab: string; 
+  activeTab: string;
   setActiveTab: (tab: string) => void;
 }
 
-const Tabs: React.FC<TabsProps> = ({setActiveTab }) => {
+const Tabs: React.FC<TabsProps> = ({ activeTab, setActiveTab }) => {
+  const tabs = ['All', 'toPlay', 'playing', 'completed'];
+
   return (
     <div>
-      <button onClick={() => setActiveTab('toPlay')}>To Play</button>
-      <button onClick={() => setActiveTab('playing')}>Playing</button>
-      <button onClick={() => setActiveTab('completed')}>Completed</button>
+      {tabs.map((tab) => (
+        <button key={tab} onClick={() => setActiveTab(tab)} className={activeTab === tab ? 'active' : ''}>
+          {tab}
+        </button>
+      ))}
     </div>
   );
 };
