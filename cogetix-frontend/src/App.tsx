@@ -24,7 +24,7 @@ const App: React.FC = () => {
       console.error('Error fetching games:', error);
     }
   };
-
+  //add game
   const handleAddGame = async (game: Game) => {
     try {
       await addGame(game);
@@ -35,7 +35,7 @@ const App: React.FC = () => {
       // Handle error
     }
   };
-
+  //update game
   const handleUpdateGame = async (game: Game) => {
     try {
       await updateGame(game);
@@ -46,7 +46,7 @@ const App: React.FC = () => {
       // Handle error
     }
   };
-
+  //delete game
   const handleDeleteGame = async (gameId: number) => {
     try {
       await deleteGame(gameId);
@@ -55,7 +55,7 @@ const App: React.FC = () => {
       // Handle error
     }
   };
-
+  //voor modal
   const handleEditGame = (game: Game) => {
     setSelectedGame(game);
     setAddFormOpen(true);
@@ -63,10 +63,10 @@ const App: React.FC = () => {
 
   return (
     <div>
-      <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
+      <Tabs activeTab={activeTab} setActiveTab={setActiveTab} /> 
 
       <button onClick={() => setAddFormOpen(true)}>Add New Game</button>
-
+      
       <GameList onEdit={handleEditGame} games={games.filter((game) => {if (activeTab === 'All') {return true;} else {return game.status === activeTab;}})} onDelete={handleDeleteGame} status={activeTab}/>
 
       <Modal
