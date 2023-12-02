@@ -8,7 +8,7 @@ interface GameListProps {
   onDelete: (gameId: number) => Promise<void>;
   status: string;
 }
-
+//lijst van games based on status met een gelinkte edit en delete knop
 const GameList: React.FC<GameListProps> = ({ onEdit, games, onDelete, status }) => {
   return (
     <div>
