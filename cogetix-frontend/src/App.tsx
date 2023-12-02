@@ -1,23 +1,58 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
 import Tabs from './components/Tabs';
 import GameList from './components/GameList';
 import GameForm from './components/GameForm';
-import { Game } from './types/Game';
+import { Game, getAllGames, addGame, updateGame, deleteGame } from './apiService';
 
 const App: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<string>('toPlay');
+  const [activeTab, setActiveTab] = useState<string>('All');
   const [isAddFormOpen, setAddFormOpen] = useState<boolean>(false);
   const [selectedGame, setSelectedGame] = useState<Game | null>(null);
+  const [games, setGames] = useState<Game[]>([]);
 
-  const handleAddGame = (game: Game) => {
-    // Implement logic to add a new game
-    setAddFormOpen(false);
+  useEffect(() => {
+    fetchAllGames();
+  }, []);
+
+  const fetchAllGames = async () => {
+    try {
+      const data = await getAllGames();
+      setGames(data);
+    } catch (error) {
+      console.error('Error fetching games:', error);
+    }
   };
 
-  const handleUpdateGame = (game: Game) => {
-    // Implement logic to update an existing game
-    setSelectedGame(null);
+  const handleAddGame = async (game: Game) => {
+    try {
+      await addGame(game);
+      setAddFormOpen(false);
+      setSelectedGame(null);
+      fetchAllGames();
+    } catch (error) {
+      // Handle error
+    }
+  };
+
+  const handleUpdateGame = async (game: Game) => {
+    try {
+      await updateGame(game);
+      setSelectedGame(null);
+      setAddFormOpen(false);
+      fetchAllGames();
+    } catch (error) {
+      // Handle error
+    }
+  };
+
+  const handleDeleteGame = async (gameId: number) => {
+    try {
+      await deleteGame(gameId);
+      fetchAllGames();
+    } catch (error) {
+      // Handle error
+    }
   };
 
   const handleCancelForm = () => {
@@ -36,7 +71,7 @@ const App: React.FC = () => {
 
       <button onClick={() => setAddFormOpen(true)}>Add New Game</button>
 
-      <GameList status={activeTab} onEdit={handleEditGame} />
+      <GameList onEdit={handleEditGame} games={games} onDelete={handleDeleteGame} />
 
       <Modal
         isOpen={isAddFormOpen}
