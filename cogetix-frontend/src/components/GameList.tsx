@@ -6,12 +6,13 @@ interface GameListProps {
   onEdit: (game: Game) => void;
   games: Game[];
   onDelete: (gameId: number) => Promise<void>;
+  status: string;
 }
 
-const GameList: React.FC<GameListProps> = ({ onEdit, games, onDelete }) => {
+const GameList: React.FC<GameListProps> = ({ onEdit, games, onDelete, status }) => {
   return (
     <div>
-      <h2>All Games</h2>
+      <h2>{status} Games</h2>
       {games.map((game) => (
         <div key={game.id}>
           <GameItem game={game} />
@@ -22,5 +23,6 @@ const GameList: React.FC<GameListProps> = ({ onEdit, games, onDelete }) => {
     </div>
   );
 };
+
 
 export default GameList;
