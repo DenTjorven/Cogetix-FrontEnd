@@ -3,6 +3,7 @@ import Modal from 'react-modal';
 import Tabs from './components/Tabs';
 import GameList from './components/GameList';
 import GameForm from './components/GameForm';
+import './App.css';
 import { Game, getAllGames, addGame, updateGame, deleteGame } from './apiService';
 
 const App: React.FC = () => {
@@ -55,11 +56,6 @@ const App: React.FC = () => {
     }
   };
 
-  const handleCancelForm = () => {
-    setAddFormOpen(false);
-    setSelectedGame(null);
-  };
-
   const handleEditGame = (game: Game) => {
     setSelectedGame(game);
     setAddFormOpen(true);
@@ -71,7 +67,7 @@ const App: React.FC = () => {
 
       <button onClick={() => setAddFormOpen(true)}>Add New Game</button>
 
-      <GameList onEdit={handleEditGame} games={games} onDelete={handleDeleteGame} />
+      <GameList onEdit={handleEditGame} games={games.filter((game) => {if (activeTab === 'All') {return true;} else {return game.status === activeTab;}})} onDelete={handleDeleteGame} status={activeTab}/>
 
       <Modal
         isOpen={isAddFormOpen}
