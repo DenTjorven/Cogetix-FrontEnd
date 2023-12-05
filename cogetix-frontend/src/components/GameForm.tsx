@@ -22,7 +22,7 @@ const GameForm: React.FC<GameFormProps> = ({ isOpen, onRequestClose, onSubmit, i
 
   const [formData, setFormData] = useState<Game>(initialData || getDefaultFormData());
 
-  const handleInputChange = (e:React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     if (name === 'status') {
       const today = new Date().toISOString().split('T')[0];
@@ -30,8 +30,8 @@ const GameForm: React.FC<GameFormProps> = ({ isOpen, onRequestClose, onSubmit, i
         ...formData,
         [name]: value,
         //veel code om typescript gerust te stellen
-        dateFirstPlayed: value === 'In Progress' ? new Date(today): value === 'Not Started' ? undefined: typeof formData.dateFirstPlayed === 'string'? new Date(formData.dateFirstPlayed): undefined,
-        dateCompleted: value === 'Completed' ? new Date(today): value === 'Not Started'? undefined: typeof formData.dateCompleted === 'string'? new Date(formData.dateCompleted): undefined,
+        dateFirstPlayed: value === 'In Progress' ? new Date(today) : value === 'Not Started' ? undefined : typeof formData.dateFirstPlayed === 'string' ? new Date(formData.dateFirstPlayed) : undefined,
+        dateCompleted: value === 'Completed' ? new Date(today) : value === 'Not Started' ? undefined : typeof formData.dateCompleted === 'string' ? new Date(formData.dateCompleted) : undefined,
       });
     } else {
       setFormData({ ...formData, [name]: value });
