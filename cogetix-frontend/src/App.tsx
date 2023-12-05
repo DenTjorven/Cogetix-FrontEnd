@@ -63,11 +63,11 @@ const App: React.FC = () => {
 
   return (
     <div>
-      <Tabs activeTab={activeTab} setActiveTab={setActiveTab} /> 
+      <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
 
       <button onClick={() => setAddFormOpen(true)}>Add New Game</button>
-      
-      <GameList onEdit={handleEditGame} games={games.filter((game) => {if (activeTab === 'All') {return true;} else {return game.status === activeTab;}})} onDelete={handleDeleteGame} status={activeTab}/>
+
+      <GameList onEdit={handleEditGame} games={games.filter((game) => { if (activeTab === 'All') { return true; } else { return game.status === activeTab; } })} onDelete={handleDeleteGame} status={activeTab} />
 
       <Modal
         isOpen={isAddFormOpen}
