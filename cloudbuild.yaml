@@ -1,0 +1,14 @@
+steps:
+  # build the container image
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '--build-arg', '-t', 'gcr.io/testrepo1/*image*:latest', '.']
+
+  # push the container image to Container Registry
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/testrepo1/*image*:latest']
+
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  args: ['gcloud', 'functions', 'deploy', '*function name*', '--trigger-http', '--runtime=nodejs20', '--region=europe-west1', '--source=.']
+
+images:
+gcr.io/testrepo1/*image*:latest
