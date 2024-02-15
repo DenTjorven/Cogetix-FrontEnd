@@ -1,9 +1,9 @@
 steps:
-  # build the container image
+  # Build the container image
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '--build-arg', '-t', 'gcr.io/intake-project-try1/cogetix-frontend:latest', '.']
 
-  # push the container image to Container Registry
+  # Push the container image to Container Registry
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'gcr.io/intake-project-try1/cogetix-frontend:latest']
 
@@ -11,4 +11,4 @@ steps:
   args: ['gcloud', 'functions', 'deploy', '--trigger-http', '--runtime=nodejs20', '--region=europe-west1', '--source=.']
 
 images:
-gcr.io/intake-project-try1/cogetix-frontend:latest
+  - 'gcr.io/intake-project-try1/cogetix-frontend:latest'
