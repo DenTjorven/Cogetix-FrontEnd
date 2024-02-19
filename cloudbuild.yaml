@@ -1,14 +1,28 @@
 steps:
   # Build the container image
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '--build-arg', '-t', 'gcr.io/intake-project-try1/cogetix-frontend:latest', '.']
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '-t'
+      - 'gcr.io/intake-project-try1/cogetix-frontend:latest'
+      - '.'  # This represents the build context directory
 
   # Push the container image to Container Registry
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'gcr.io/intake-project-try1/cogetix-frontend:latest']
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'push'
+      - 'gcr.io/intake-project-try1/cogetix-frontend:latest'
 
-- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-  args: ['gcloud', 'functions', 'deploy', '--trigger-http', '--runtime=nodejs20', '--region=europe-west1', '--source=.']
+  # Deploy the Cloud Function
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    args:
+      - 'gcloud'
+      - 'functions'
+      - 'deploy'
+      - '--trigger-http'
+      - '--runtime=nodejs20'
+      - '--region=europe-west1'
+      - '--source=.'  # This represents the source directory for the function deployment
 
 images:
   - 'gcr.io/intake-project-try1/cogetix-frontend:latest'
