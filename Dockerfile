@@ -20,4 +20,4 @@ RUN apt-get update && apt-get install -y git
 
 # Install dependencies.
 RUN npm install
-RUN npm run deploy
+RUN npm run dev
